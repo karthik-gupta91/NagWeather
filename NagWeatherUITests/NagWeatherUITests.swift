@@ -22,12 +22,23 @@ final class NagWeatherUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
+    func testWeatherUI() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
+        let searchBarElement = app.searchFields.element
+        searchBarElement.tap()
+        searchBarElement.typeText("London")
+        
+        let label = app.staticTexts["London"]
+        let exists = NSPredicate(format: "exists == 1")
 
+        expectation(for: exists, evaluatedWith: label, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        XCTAssertTrue(app.staticTexts["London"].exists)
+
     }
 
     func testLaunchPerformance() throws {
