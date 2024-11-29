@@ -50,7 +50,7 @@ final class NagWeatherViewModelTests: XCTestCase {
         })
         .store(in: &cancellables)
         
-        wait(for: [expectation], timeout: 10)
+        wait(for: [expectation], timeout: 1)
         
         print(viewModel.weatherData?.location?.name! ?? "")
         XCTAssertEqual(viewModel.weatherData?.location?.name! ?? "", "London")
@@ -74,7 +74,7 @@ final class NagWeatherViewModelTests: XCTestCase {
         })
         .store(in: &cancellables)
         
-        wait(for: [expectation], timeout: 10)
+        wait(for: [expectation], timeout: 1)
         
         print(viewModel.weatherData?.location?.name! ?? "")
         XCTAssertNil(viewModel.weatherData)

@@ -28,8 +28,7 @@ struct ContentView: View {
                     Alert(title: Text("Login Error"), message:
                             Text(viewModel.errorMessage),
                           dismissButton: .default(Text("Ok")))
-                }
-                .padding()
+                }  
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background { BackgroundView() }
         }.searchable(text: $viewModel.searchText, prompt: "")

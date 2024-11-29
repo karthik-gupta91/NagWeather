@@ -27,7 +27,8 @@
 		1F77A8C72CF8C513006A2BFC /* WeatherModel.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F77A8C62CF8C513006A2BFC /* WeatherModel.json */; };
 		1F77A8C92CF8C5B8006A2BFC /* NagWeatherViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8C82CF8C5B8006A2BFC /* NagWeatherViewModelTests.swift */; };
 		1F77A8D42CF8CE07006A2BFC /* WeatherServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8D32CF8CE07006A2BFC /* WeatherServiceMock.swift */; };
-		1F77A8D62CF8CE8E006A2BFC /* WeatherViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8D52CF8CE8E006A2BFC /* WeatherViewModelMock.swift */; };
+		1F77A8DA2CF96417006A2BFC /* NagWeatherAPIRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8D92CF96417006A2BFC /* NagWeatherAPIRepositoryTests.swift */; };
+		1F77A8DC2CF96610006A2BFC /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8DB2CF96610006A2BFC /* MockURLProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +72,8 @@
 		1F77A8C62CF8C513006A2BFC /* WeatherModel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WeatherModel.json; sourceTree = "<group>"; };
 		1F77A8C82CF8C5B8006A2BFC /* NagWeatherViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NagWeatherViewModelTests.swift; sourceTree = "<group>"; };
 		1F77A8D32CF8CE07006A2BFC /* WeatherServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceMock.swift; sourceTree = "<group>"; };
-		1F77A8D52CF8CE8E006A2BFC /* WeatherViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelMock.swift; sourceTree = "<group>"; };
+		1F77A8D92CF96417006A2BFC /* NagWeatherAPIRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NagWeatherAPIRepositoryTests.swift; sourceTree = "<group>"; };
+		1F77A8DB2CF96610006A2BFC /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 			children = (
 				1F77A88C2CF854A1006A2BFC /* NagWeatherTests.swift */,
 				1F77A8C82CF8C5B8006A2BFC /* NagWeatherViewModelTests.swift */,
+				1F77A8D92CF96417006A2BFC /* NagWeatherAPIRepositoryTests.swift */,
 				1F77A8D82CF8D41B006A2BFC /* MockJsons */,
 				1F77A8D72CF8D415006A2BFC /* Mock */,
 			);
@@ -243,8 +246,8 @@
 			isa = PBXGroup;
 			children = (
 				1F77A8C42CF8C422006A2BFC /* Extension.swift */,
-				1F77A8D52CF8CE8E006A2BFC /* WeatherViewModelMock.swift */,
 				1F77A8D32CF8CE07006A2BFC /* WeatherServiceMock.swift */,
+				1F77A8DB2CF96610006A2BFC /* MockURLProtocol.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -406,11 +409,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F77A8DC2CF96610006A2BFC /* MockURLProtocol.swift in Sources */,
 				1F77A8C92CF8C5B8006A2BFC /* NagWeatherViewModelTests.swift in Sources */,
-				1F77A8D62CF8CE8E006A2BFC /* WeatherViewModelMock.swift in Sources */,
 				1F77A88D2CF854A1006A2BFC /* NagWeatherTests.swift in Sources */,
 				1F77A8D42CF8CE07006A2BFC /* WeatherServiceMock.swift in Sources */,
 				1F77A8C52CF8C422006A2BFC /* Extension.swift in Sources */,
+				1F77A8DA2CF96417006A2BFC /* NagWeatherAPIRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
