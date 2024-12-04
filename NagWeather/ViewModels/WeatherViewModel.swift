@@ -13,7 +13,7 @@ class WeatherViewModel: ObservableObject {
     private let weatherService: WeatherService
     private var cancellables = Set<AnyCancellable>()
     
-    @Published var searchText: String = ""
+    var searchText: String = ""
     @Published private(set) var weatherData: WeatherModel?
     @Published var isLoading: Bool = false
     @Published var showAlert = false
@@ -23,24 +23,24 @@ class WeatherViewModel: ObservableObject {
     init(weatherService: WeatherService) {
         self.weatherService = weatherService
         
-        $searchText
-            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
-            .removeDuplicates()
-            .sink { [weak self] query in
-                self?.performSearch(query: query)
-            }
-            .store(in: &cancellables)
+//        $searchText
+//            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+//            .removeDuplicates()
+//            .sink { [weak self] query in
+//                self?.performSearch(query: query)
+//            }
+//            .store(in: &cancellables)
         
     }
     
     
-    func performSearch(query: String) {
-        guard !query.isEmpty else {
+    func performSearch() {
+        guard !searchText.isEmpty else {
             return
         }
         isLoading = true
         
-        weatherService.fetchWeather(for: query)
+        weatherService.fetchWeather(for: searchText)
             .sink { [weak self] operationResult in
                 guard let self = self else { return }
                 
@@ -60,11 +60,11 @@ class WeatherViewModel: ObservableObject {
     }
     
     var tempCFormatted: String {
-        return "\(weatherData?.current?.tempC ?? 0.0)" + "ºC"
+        return "\(weatherData?.current?.tempC ?? 0.0)" + "°C"
     }
 
     var feelsLikeCFormatted: String {
-        return "\(weatherData?.current?.feelslikeC ?? 0.0)" + "ºC"
+        return "\(weatherData?.current?.feelslikeC ?? 0.0)" + "°C"
     }
     
     func dayFrom(_ str: String) -> String {
@@ -74,5 +74,6 @@ class WeatherViewModel: ObservableObject {
         }
         return Helpers.dayOfWeek(from: str) ?? ""
     }
+    
 }
 

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject private var viewModel = WeatherViewModel(weatherService: WeatherServiceImpl(weatherAPIRepository: WeatherAPIRepository(urlSession: URLSession(configuration: .default))))
+    @ObservedObject var viewModel: WeatherViewModel
     
     var body: some View {
         
@@ -25,13 +25,17 @@ struct ContentView: View {
                         currentWeatherView
                     }
                 }.alert(isPresented: $viewModel.showAlert) {
-                    Alert(title: Text("Login Error"), message:
+                    Alert(title: Text("Alert"), message:
                             Text(viewModel.errorMessage),
                           dismissButton: .default(Text("Ok")))
-                }  
+                }.padding()
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background { BackgroundView() }
-        }.searchable(text: $viewModel.searchText, prompt: "")
+        }.searchable(text: $viewModel.searchText) {
+
+        }.onSubmit(of: .search) {
+            viewModel.performSearch()
+        }
         
     }
     
@@ -105,5 +109,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(viewModel: WeatherViewModel(weatherService: WeatherServiceImpl(weatherAPIRepository: WeatherAPIRepository(urlSession: URLSession(configuration: .default)))))
 }

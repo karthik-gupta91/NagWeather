@@ -42,7 +42,9 @@ final class NagWeatherViewModelTests: XCTestCase {
     func testWeatherViewModelData() {
 
         let expectation = XCTestExpectation(description: "fetch weather data")
-                
+        
+        viewModel.performSearch()
+        
         viewModel.$weatherData.sink(receiveValue: { weatherData in
             if weatherData != nil {
                 expectation.fulfill()
@@ -54,8 +56,8 @@ final class NagWeatherViewModelTests: XCTestCase {
         
         print(viewModel.weatherData?.location?.name! ?? "")
         XCTAssertEqual(viewModel.weatherData?.location?.name! ?? "", "London")
-        XCTAssertEqual(viewModel.tempCFormatted, "4.2ºC")
-        XCTAssertEqual(viewModel.feelsLikeCFormatted, "3.8ºC")
+        XCTAssertEqual(viewModel.tempCFormatted, "4.2°C")
+        XCTAssertEqual(viewModel.feelsLikeCFormatted, "3.8°C")
         XCTAssertNotNil(viewModel.dayFrom(viewModel.weatherData?.current?.lastUpdated! ?? "2024-11-29"))
     }
     
@@ -64,6 +66,7 @@ final class NagWeatherViewModelTests: XCTestCase {
         weatherService.shouldReturnError = true
         viewModel = WeatherViewModel(weatherService: weatherService)
         viewModel.searchText = "Test"
+        viewModel.performSearch()
         
         let expectation = XCTestExpectation(description: "fetch failue")
                 

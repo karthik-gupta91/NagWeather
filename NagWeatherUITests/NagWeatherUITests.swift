@@ -29,6 +29,7 @@ final class NagWeatherUITests: XCTestCase {
         let searchBarElement = app.searchFields.element
         searchBarElement.tap()
         searchBarElement.typeText("London")
+        XCUIApplication()/*@START_MENU_TOKEN@*/.buttons["Search"]/*[[".keyboards",".buttons[\"search\"]",".buttons[\"Search\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
         
         let label = app.staticTexts["London"]
         let exists = NSPredicate(format: "exists == 1")
@@ -41,6 +42,25 @@ final class NagWeatherUITests: XCTestCase {
 
     }
 
+    func testAlertUI() throws {
+        // UI tests must launch the application that they test.
+        let app = XCUIApplication()
+        app.launch()
+        let searchBarElement = app.searchFields.element
+        searchBarElement.tap()
+        searchBarElement.typeText("Lo")
+        XCUIApplication()/*@START_MENU_TOKEN@*/.buttons["Search"]/*[[".keyboards",".buttons[\"search\"]",".buttons[\"Search\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
+        
+        let label = app.staticTexts["Alert"]
+        let exists = NSPredicate(format: "exists == 1")
+
+        expectation(for: exists, evaluatedWith: label, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        XCTAssertTrue(app.staticTexts["Alert"].exists)
+
+    }
     func testLaunchPerformance() throws {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
             // This measures how long it takes to launch your application.
