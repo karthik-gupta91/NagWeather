@@ -19,15 +19,15 @@ struct ContentView: View {
                     if viewModel.isLoading {
                         HStack(spacing: 15) {
                             ProgressView()
-                            Text("Loading…")
+                            Text(AppConstants.AlertConstants.loading)
                         }
-                    } else if viewModel.weatherData != nil {
+                    } else if viewModel.checkIFWeatherData() {
                         currentWeatherView
                     }
                 }.alert(isPresented: $viewModel.showAlert) {
-                    Alert(title: Text("Alert"), message:
+                    Alert(title: Text(AppConstants.AlertConstants.alert), message:
                             Text(viewModel.errorMessage),
-                          dismissButton: .default(Text("Ok")))
+                          dismissButton: .default(Text(AppConstants.AlertConstants.ok)))
                 }.padding()
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background { BackgroundView() }
@@ -42,7 +42,7 @@ struct ContentView: View {
     private var currentWeatherView: some View {
         return VStack(spacing: 4) {
             
-            Text(viewModel.weatherData?.location?.name ?? "")
+            Text(viewModel.locationName())
                 .font(.title)
                 .fontWeight(.medium)
                 .foregroundColor(.black)
@@ -52,19 +52,19 @@ struct ContentView: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.black)
             
-            Text("\(viewModel.weatherData?.current?.condition?.text ?? "") - \(viewModel.feelsLikeCFormatted)")
+            Text(viewModel.currentWeatherCondition() + "-" + viewModel.feelsLikeCFormatted)
                 .foregroundColor(.black)
-            Text("Last updated at - \(viewModel.dayFrom(viewModel.weatherData?.current?.lastUpdated ?? ""))")
+            Text(AppConstants.lastUpdatedAt + "-" + viewModel.dayFrom(viewModel.lastUpdated()))
                 .foregroundColor(.black)
             
             Spacer()
             
-            Text(viewModel.weatherData?.location?.name ?? "")
+            Text(viewModel.locationName())
                 .font(.subheadline)
                 .fontWeight(.semibold)
                 .foregroundColor(.red)
             
-            Text(viewModel.weatherData?.location?.country ?? "")
+            Text(viewModel.countryName())
                 .font(.subheadline)
                 .fontWeight(.semibold)
                 .foregroundColor(.black)
@@ -72,35 +72,35 @@ struct ContentView: View {
             Divider().background(.black)
             
             HStack {
-                Text("Humidity")
+                Text(AppConstants.humidity)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.black)
                 Spacer()
-                Text("\(viewModel.weatherData?.current?.humidity ?? 0)").font(.subheadline)
+                Text(viewModel.currentHumidity()).font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.black)
             }
             
             HStack {
-                Text("Wind Direction")
+                Text(AppConstants.windDirection)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.black)
                 Spacer()
-                Text("\(viewModel.weatherData?.current?.windKph ?? 0)").font(.subheadline)
+                Text(viewModel.windKPH() ).font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.black)
             }
             
             Spacer()
             
-            Text("Weather Forecast").font(.headline)
+            Text(AppConstants.weatherForecast).font(.headline)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
             
-            ForEach(viewModel.weatherData?.forecast?.forecastday ?? []) { day in
-                DaySummaryView(day: viewModel.dayFrom(day.date ?? "2000-11-11"), highTemp: "\(day.day?.maxtempC ?? 0) ºC", lowTemp: "\(day.day?.mintempC ?? 0) ºC")
+            ForEach(viewModel.forecastDays()) { day in
+                DaySummaryView(day: viewModel.dayFrom(day.date ?? "2000-11-11"), highTemp: "\(day.day?.maxtempC ?? 0) \(AppConstants.degreeCelcius)", lowTemp: "\(day.day?.mintempC ?? 0) \(AppConstants.degreeCelcius)")
             }
             
         }

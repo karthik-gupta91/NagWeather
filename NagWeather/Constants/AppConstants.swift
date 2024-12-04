@@ -30,6 +30,19 @@ enum AppConstants {
         static let AccentColor = Color("AccentColor")
         static let AppBackground = Color("AppBackground")
     }
+
+    enum AlertConstants {
+        static let alert = "Alert"
+        static let ok = "Ok"
+        static let loading = "Loading…"
+    }
+    
+    static let lastUpdatedAt = "Last updated at"
+    static let humidity = "Humidity"
+    static let windDirection = "Wind Direction"
+    static let weatherForecast = "Weather Forecast"
+    static let today = "Today"
+    static let degreeCelcius = "°C"
 }
 
 

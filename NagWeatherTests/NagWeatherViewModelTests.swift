@@ -54,11 +54,10 @@ final class NagWeatherViewModelTests: XCTestCase {
         
         wait(for: [expectation], timeout: 1)
         
-        print(viewModel.weatherData?.location?.name! ?? "")
-        XCTAssertEqual(viewModel.weatherData?.location?.name! ?? "", "London")
+        XCTAssertEqual(viewModel.locationName(), "London")
         XCTAssertEqual(viewModel.tempCFormatted, "4.2°C")
         XCTAssertEqual(viewModel.feelsLikeCFormatted, "3.8°C")
-        XCTAssertNotNil(viewModel.dayFrom(viewModel.weatherData?.current?.lastUpdated! ?? "2024-11-29"))
+        XCTAssertNotNil(viewModel.dayFrom(viewModel.lastUpdated()))
     }
     
     func testWeatherViewModelDataFailure() {
@@ -79,7 +78,6 @@ final class NagWeatherViewModelTests: XCTestCase {
         
         wait(for: [expectation], timeout: 1)
         
-        print(viewModel.weatherData?.location?.name! ?? "")
         XCTAssertNil(viewModel.weatherData)
     }
 
