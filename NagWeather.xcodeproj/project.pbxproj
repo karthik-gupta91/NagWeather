@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F7398382D016B40009B4A00 /* SLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7398372D016B40009B4A00 /* SLocationModel.swift */; };
+		1F73983D2D018794009B4A00 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F73983C2D018794009B4A00 /* VisualEffectView.swift */; };
 		1F77A87C2CF8549F006A2BFC /* NagWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A87B2CF8549F006A2BFC /* NagWeatherApp.swift */; };
 		1F77A87E2CF8549F006A2BFC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A87D2CF8549F006A2BFC /* ContentView.swift */; };
 		1F77A8802CF854A0006A2BFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F77A87F2CF854A0006A2BFC /* Assets.xcassets */; };
@@ -14,7 +16,6 @@
 		1F77A88D2CF854A1006A2BFC /* NagWeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A88C2CF854A1006A2BFC /* NagWeatherTests.swift */; };
 		1F77A8972CF854A1006A2BFC /* NagWeatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8962CF854A1006A2BFC /* NagWeatherUITests.swift */; };
 		1F77A8992CF854A1006A2BFC /* NagWeatherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8982CF854A1006A2BFC /* NagWeatherUITestsLaunchTests.swift */; };
-		1F77A8AC2CF861EE006A2BFC /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8AB2CF861EE006A2BFC /* BackgroundView.swift */; };
 		1F77A8AF2CF8625D006A2BFC /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8AE2CF8625D006A2BFC /* AppConstants.swift */; };
 		1F77A8B12CF863F1006A2BFC /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8B02CF863F1006A2BFC /* WeatherViewModel.swift */; };
 		1F77A8B32CF86814006A2BFC /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8B22CF86814006A2BFC /* WeatherModel.swift */; };
@@ -49,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F7398372D016B40009B4A00 /* SLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLocationModel.swift; sourceTree = "<group>"; };
+		1F73983C2D018794009B4A00 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		1F77A8782CF8549F006A2BFC /* NagWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NagWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F77A87B2CF8549F006A2BFC /* NagWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NagWeatherApp.swift; sourceTree = "<group>"; };
 		1F77A87D2CF8549F006A2BFC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,7 +62,6 @@
 		1F77A8922CF854A1006A2BFC /* NagWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NagWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F77A8962CF854A1006A2BFC /* NagWeatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NagWeatherUITests.swift; sourceTree = "<group>"; };
 		1F77A8982CF854A1006A2BFC /* NagWeatherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NagWeatherUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		1F77A8AB2CF861EE006A2BFC /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		1F77A8AE2CF8625D006A2BFC /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		1F77A8B02CF863F1006A2BFC /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		1F77A8B22CF86814006A2BFC /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				1F77A8B22CF86814006A2BFC /* WeatherModel.swift */,
+				1F7398372D016B40009B4A00 /* SLocationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -219,8 +222,8 @@
 		1F77A8BD2CF899D5006A2BFC /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				1F77A8AB2CF861EE006A2BFC /* BackgroundView.swift */,
 				1F77A8BB2CF899C5006A2BFC /* DaySummaryView.swift */,
+				1F73983C2D018794009B4A00 /* VisualEffectView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -395,11 +398,12 @@
 				1F77A87E2CF8549F006A2BFC /* ContentView.swift in Sources */,
 				1F77A8B12CF863F1006A2BFC /* WeatherViewModel.swift in Sources */,
 				1F77A87C2CF8549F006A2BFC /* NagWeatherApp.swift in Sources */,
+				1F7398382D016B40009B4A00 /* SLocationModel.swift in Sources */,
+				1F73983D2D018794009B4A00 /* VisualEffectView.swift in Sources */,
 				1F77A8C22CF8BD02006A2BFC /* WeatherService.swift in Sources */,
 				1F77A8BF2CF8B903006A2BFC /* Helpers.swift in Sources */,
 				1F77A8BA2CF87EA5006A2BFC /* APIError.swift in Sources */,
 				1F77A8B32CF86814006A2BFC /* WeatherModel.swift in Sources */,
-				1F77A8AC2CF861EE006A2BFC /* BackgroundView.swift in Sources */,
 				1F77A8AF2CF8625D006A2BFC /* AppConstants.swift in Sources */,
 				1F77A8B62CF868E4006A2BFC /* WeatherAPIRepository.swift in Sources */,
 			);

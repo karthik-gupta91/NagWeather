@@ -8,37 +8,48 @@
 import Foundation
 import Combine
 
+enum WeatherViewState {
+    case none
+    case loadingLocations
+    case locationsLoaded
+    case fetchingWeatherData
+    case dataLoaded
+}
+
 class WeatherViewModel: ObservableObject {
     
     private let weatherService: WeatherService
     private var cancellables = Set<AnyCancellable>()
     
-    var searchText: String = ""
+    @Published var searchText: String = ""
     @Published private(set) var weatherData: WeatherModel?
-    @Published var isLoading: Bool = false
+    @Published private(set) var suggestions: [SLocation] = []
     @Published var showAlert = false
     
     @Published private(set) var errorMessage = ""
     
+    @Published private(set) var state: WeatherViewState = .none
+    
     init(weatherService: WeatherService) {
         self.weatherService = weatherService
         
-//        $searchText
-//            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
-//            .removeDuplicates()
-//            .sink { [weak self] query in
-//                self?.performSearch(query: query)
-//            }
-//            .store(in: &cancellables)
+        $searchText
+            .dropFirst()
+            .debounce(for: .milliseconds(500), scheduler: DispatchQueue(label: "SearchSuggestions", qos: .userInteractive))
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] query in
+                self?.showSuggestions(query: query)
+            }
+            .store(in: &cancellables)
         
     }
     
     
-    func performSearch() {
+    func performSearch(_ searchText: String) {
         guard !searchText.isEmpty else {
             return
         }
-        isLoading = true
+        state = .fetchingWeatherData
         
         weatherService.fetchWeather(for: searchText)
             .sink { [weak self] operationResult in
@@ -46,15 +57,45 @@ class WeatherViewModel: ObservableObject {
                 
                 switch operationResult {
                 case .finished:
-                    isLoading = false
+                    state = .dataLoaded
                 case .failure(let error):
-                    isLoading = false
+                    state = .none
                     self.errorMessage = error.localizedDescription
                     self.showAlert = true
                 }
             } receiveValue: { weatherData in
                 self.weatherData = weatherData
-                print(weatherData)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func showSuggestions(query: String) {
+        guard query.count > 1 else {
+            return
+        }
+        suggestions = []
+        state = .loadingLocations
+        
+        weatherService.searchSuggestions(for: searchText)
+            .sink { [weak self] operationResult in
+                guard let self = self else { return }
+                
+                switch operationResult {
+                case .finished:
+                    state = .locationsLoaded
+                case .failure(let error):
+                    state = .none
+                    self.errorMessage = error.localizedDescription
+                    self.showAlert = true
+                }
+            } receiveValue: { slocations in
+                if slocations.count > 0 {
+                    self.suggestions = slocations
+                } else {
+                    self.state = .none
+                    self.errorMessage = "No suggestions found"
+                    self.showAlert = true
+                }
             }
             .store(in: &cancellables)
     }
@@ -68,10 +109,6 @@ class WeatherViewModel: ObservableObject {
     }
     
     func dayFrom(_ str: String) -> String {
-        let date = Helpers.stringToDate(str: str)
-        if Calendar.current.isDateInToday(date) {
-            return AppConstants.today
-        }
         return Helpers.dayOfWeek(from: str) ?? ""
     }
     

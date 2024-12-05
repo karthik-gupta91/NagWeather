@@ -14,14 +14,37 @@ struct ContentView: View {
     var body: some View {
         
         NavigationStack{
-            ScrollView(.vertical, showsIndicators: false) {
+            ZStack {
+                LinearGradient(gradient:
+                                Gradient(colors: [
+                                    AppConstants.WeatherColor.AppBackground,
+                                    AppConstants.WeatherColor.AccentColor,
+                                ]), startPoint: .top, endPoint: .bottomTrailing).ignoresSafeArea()
+
+                VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)).ignoresSafeArea()
+                
                 VStack {
-                    if viewModel.isLoading {
+                    if viewModel.state == .loadingLocations {
                         HStack(spacing: 15) {
                             ProgressView()
                             Text(AppConstants.AlertConstants.loading)
                         }
-                    } else if viewModel.checkIFWeatherData() {
+                    } else if viewModel.state == .locationsLoaded {
+                        List(viewModel.suggestions) { location in
+                            HStack {
+                                Button("\(location.name), \(location.region ?? ""), \(location.country ?? "")") {
+                                    viewModel.performSearch(location.name)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }.listRowBackground(Color.clear) 
+                        }
+                        .listStyle(.plain)
+                    } else if viewModel.state == .fetchingWeatherData {
+                        HStack(spacing: 15) {
+                            ProgressView()
+                            Text(AppConstants.AlertConstants.loading)
+                        }
+                    } else if viewModel.state == .dataLoaded {
                         currentWeatherView
                     }
                 }.alert(isPresented: $viewModel.showAlert) {
@@ -29,13 +52,9 @@ struct ContentView: View {
                             Text(viewModel.errorMessage),
                           dismissButton: .default(Text(AppConstants.AlertConstants.ok)))
                 }.padding()
-            }.frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background { BackgroundView() }
-        }.searchable(text: $viewModel.searchText) {
-
-        }.onSubmit(of: .search) {
-            viewModel.performSearch()
-        }
+                
+            }
+        }.searchable(text: $viewModel.searchText)
         
     }
     
@@ -97,7 +116,7 @@ struct ContentView: View {
             
             Text(AppConstants.weatherForecast).font(.headline)
                 .fontWeight(.bold)
-                .foregroundColor(.white)
+                .foregroundColor(.gray)
             
             ForEach(viewModel.forecastDays()) { day in
                 DaySummaryView(day: viewModel.dayFrom(day.date ?? "2000-11-11"), highTemp: "\(day.day?.maxtempC ?? 0) \(AppConstants.degreeCelcius)", lowTemp: "\(day.day?.mintempC ?? 0) \(AppConstants.degreeCelcius)")

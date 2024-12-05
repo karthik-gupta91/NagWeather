@@ -10,10 +10,11 @@ import Combine
 
 protocol WeatherService {
     func fetchWeather(for location: String) -> AnyPublisher<WeatherModel, WeatherApiError>
+    func searchSuggestions(for query: String) -> AnyPublisher<[SLocation], WeatherApiError>
 }
 
 struct WeatherServiceImpl: WeatherService {
-    
+
     private var weatherAPIRepository: WeatherAPIRepository
     
     init(weatherAPIRepository: WeatherAPIRepository) {
@@ -22,6 +23,10 @@ struct WeatherServiceImpl: WeatherService {
     
     func fetchWeather(for location: String) -> AnyPublisher<WeatherModel, WeatherApiError> {
         return weatherAPIRepository.fetchWeather(location: location)
+    }
+    
+    func searchSuggestions(for query: String) -> AnyPublisher<[SLocation], WeatherApiError> {
+        return weatherAPIRepository.searchSuggestion(query: query)
     }
     
 }
