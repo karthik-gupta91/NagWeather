@@ -30,6 +30,19 @@ final class NagWeatherTests: XCTestCase {
             XCTAssert(false, "WeatherModel.json decode failed \(error)")
         }
     }
+    
+    func testLocationsDataValidity() {
+        let jsonData = Bundle.stubbedDataFromJson(filename: "Locations")
+
+        let decoder = JSONDecoder()
+        do {
+            let locations = try decoder.decode([SLocation].self, from: jsonData)
+
+            XCTAssertEqual(locations.count, 5)
+        } catch {
+            XCTAssert(false, "WeatherModel.json decode failed \(error)")
+        }
+    }
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.

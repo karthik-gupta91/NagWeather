@@ -11,6 +11,32 @@ import Combine
 
 class WeatherServiceMock: WeatherService {
     
+    func searchSuggestions(for query: String) -> AnyPublisher<[SLocation], WeatherApiError> {
+        if shouldReturnError {
+            return Fail(error: WeatherApiError.decodingError)
+                .eraseToAnyPublisher()
+        } else {
+            return Just(createLocationResponseMock())
+                .receive(on: DispatchQueue.main)
+                .setFailureType(to: WeatherApiError.self)
+                .eraseToAnyPublisher()
+        }
+    }
+    
+    func saveWeatherData(_ weatherData: WeatherModel) -> AnyPublisher<Void, Error> {
+        if shouldReturnError {
+            return Fail(error: WeatherApiError.decodingError)
+                .eraseToAnyPublisher()
+        } else {
+            return Just(())
+                .receive(on: DispatchQueue.main)
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
+        }
+        
+    }
+    
+    
     var shouldReturnError = false
     
     func fetchWeather(for location: String) -> AnyPublisher<WeatherModel, WeatherApiError> {
@@ -31,4 +57,9 @@ class WeatherServiceMock: WeatherService {
         return response
     }
     
+    func createLocationResponseMock() -> [SLocation] {
+        let data = Bundle.stubbedDataFromJson(filename: "Locations")
+        let response = try! JSONDecoder().decode([SLocation].self, from: data)
+        return response
+    }
 }

@@ -40,6 +40,7 @@ struct ContentView: View {
                             }.listRowBackground(Color.clear) 
                         }
                         .listStyle(.plain)
+                        .accessibilityIdentifier("searchSuggestionList")
                     } else if viewModel.state == .fetchingWeatherData {
                         HStack(spacing: 15) {
                             ProgressView()

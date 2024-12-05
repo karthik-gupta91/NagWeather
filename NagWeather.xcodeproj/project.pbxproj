@@ -10,6 +10,7 @@
 		1F7398382D016B40009B4A00 /* SLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7398372D016B40009B4A00 /* SLocationModel.swift */; };
 		1F73983D2D018794009B4A00 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F73983C2D018794009B4A00 /* VisualEffectView.swift */; };
 		1F73983F2D018EE0009B4A00 /* WeatherOfflineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F73983E2D018EE0009B4A00 /* WeatherOfflineRepository.swift */; };
+		1F73984B2D01A828009B4A00 /* Locations.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F73984A2D01A828009B4A00 /* Locations.json */; };
 		1F77A87C2CF8549F006A2BFC /* NagWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A87B2CF8549F006A2BFC /* NagWeatherApp.swift */; };
 		1F77A87E2CF8549F006A2BFC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A87D2CF8549F006A2BFC /* ContentView.swift */; };
 		1F77A8802CF854A0006A2BFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F77A87F2CF854A0006A2BFC /* Assets.xcassets */; };
@@ -67,6 +68,7 @@
 		1F7398372D016B40009B4A00 /* SLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLocationModel.swift; sourceTree = "<group>"; };
 		1F73983C2D018794009B4A00 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		1F73983E2D018EE0009B4A00 /* WeatherOfflineRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherOfflineRepository.swift; sourceTree = "<group>"; };
+		1F73984A2D01A828009B4A00 /* Locations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Locations.json; sourceTree = "<group>"; };
 		1F77A8782CF8549F006A2BFC /* NagWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NagWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F77A87B2CF8549F006A2BFC /* NagWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NagWeatherApp.swift; sourceTree = "<group>"; };
 		1F77A87D2CF8549F006A2BFC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				1F77A8C62CF8C513006A2BFC /* WeatherModel.json */,
+				1F73984A2D01A828009B4A00 /* Locations.json */,
 			);
 			path = MockJsons;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F73984B2D01A828009B4A00 /* Locations.json in Resources */,
 				1F77A8C72CF8C513006A2BFC /* WeatherModel.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

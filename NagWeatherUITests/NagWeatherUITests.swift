@@ -23,14 +23,17 @@ final class NagWeatherUITests: XCTestCase {
     }
 
     func testWeatherUI() throws {
+        
+        
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
         let searchBarElement = app.searchFields.element
         searchBarElement.tap()
-        searchBarElement.typeText("London")
-        XCUIApplication()/*@START_MENU_TOKEN@*/.buttons["Search"]/*[[".keyboards",".buttons[\"search\"]",".buttons[\"Search\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
-        
+        searchBarElement.typeText("Lon")
+
+        app.collectionViews["searchSuggestionList"].cells.element(boundBy: 0).tap()
+
         let label = app.staticTexts["London"]
         let exists = NSPredicate(format: "exists == 1")
 
@@ -49,7 +52,6 @@ final class NagWeatherUITests: XCTestCase {
         let searchBarElement = app.searchFields.element
         searchBarElement.tap()
         searchBarElement.typeText("Lo")
-        XCUIApplication()/*@START_MENU_TOKEN@*/.buttons["Search"]/*[[".keyboards",".buttons[\"search\"]",".buttons[\"Search\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
         
         let label = app.staticTexts["Alert"]
         let exists = NSPredicate(format: "exists == 1")

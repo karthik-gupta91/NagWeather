@@ -11,13 +11,13 @@ import Combine
 
 final class NagWeatherViewModelTests: XCTestCase {
 
+    private var weatherService = WeatherServiceMock()
     private var viewModel: WeatherViewModel!
     private var cancellables = Set<AnyCancellable>()
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        viewModel = WeatherViewModel(weatherService: WeatherServiceMock())
-        viewModel.searchText = "Test"
+        viewModel = WeatherViewModel(weatherService: weatherService)
     }
 
     override func tearDownWithError() throws {
@@ -38,12 +38,50 @@ final class NagWeatherViewModelTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    func testSearchSuggestionsData() {
+        
+        weatherService.shouldReturnError = false
+        
+        let expectation = XCTestExpectation(description: "search suggestion list count")
+        
+        viewModel.searchText = "Lon"
+        
+        viewModel.$suggestions.sink(receiveValue: { locations in
+            if locations.count > 0 {
+                expectation.fulfill()
+            }
+        })
+        .store(in: &cancellables)
+        
+        wait(for: [expectation], timeout: 1)
+        
+        XCTAssertEqual(viewModel.suggestions.count, 5)
+    }
+    
+    func testSearchSuggestionsFailure() {
+        weatherService.shouldReturnError = true
+        viewModel.searchText = "Test"
+        
+        let expectation = XCTestExpectation(description: "search list failue")
+                
+        viewModel.$errorMessage.sink(receiveValue: { errorMessage in
+            if errorMessage.count > 0 {
+                expectation.fulfill()
+            }
+        })
+        .store(in: &cancellables)
+        
+        wait(for: [expectation], timeout: 1)
+        
+        XCTAssertNil(viewModel.weatherData)
+    }
+    
     
     func testWeatherViewModelData() {
-
+        weatherService.shouldReturnError = false
         let expectation = XCTestExpectation(description: "fetch weather data")
         
-        viewModel.performSearch()
+        viewModel.performSearch("London")
         
         viewModel.$weatherData.sink(receiveValue: { weatherData in
             if weatherData != nil {
@@ -61,11 +99,9 @@ final class NagWeatherViewModelTests: XCTestCase {
     }
     
     func testWeatherViewModelDataFailure() {
-        let weatherService = WeatherServiceMock()
         weatherService.shouldReturnError = true
-        viewModel = WeatherViewModel(weatherService: weatherService)
-        viewModel.searchText = "Test"
-        viewModel.performSearch()
+        
+        viewModel.performSearch("London")
         
         let expectation = XCTestExpectation(description: "fetch failue")
                 

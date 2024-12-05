@@ -45,7 +45,7 @@ class WeatherOfflineRepository {
         .eraseToAnyPublisher()
     }
     
-    func saveWeatherData(_ weatherData: WeatherModel) -> AnyPublisher<Void, Never> {
+    func saveWeatherData(_ weatherData: WeatherModel) -> AnyPublisher<Void, Error> {
         return Future { promise in
             DispatchQueue.global(qos: .background).async {
                 guard let data = try? JSONEncoder().encode(weatherData) else { fatalError("Error encoding data") }

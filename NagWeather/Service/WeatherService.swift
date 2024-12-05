@@ -11,7 +11,7 @@ import Combine
 protocol WeatherService {
     func fetchWeather(for location: String) -> AnyPublisher<WeatherModel, WeatherApiError>
     func searchSuggestions(for query: String) -> AnyPublisher<[SLocation], WeatherApiError>
-    func saveWeatherData(_ weatherData: WeatherModel) -> AnyPublisher<Void, Never>
+    func saveWeatherData(_ weatherData: WeatherModel) -> AnyPublisher<Void, Error>
 }
 
 struct WeatherServiceImpl: WeatherService {
@@ -37,7 +37,7 @@ struct WeatherServiceImpl: WeatherService {
         return weatherAPIRepository.searchSuggestion(query: query)
     }
     
-    func saveWeatherData(_ weatherData: WeatherModel) -> AnyPublisher<Void, Never> {
+    func saveWeatherData(_ weatherData: WeatherModel) -> AnyPublisher<Void, Error> {
         return weatherOfflineRepository.saveWeatherData(weatherData)
     }
     

@@ -41,8 +41,54 @@ final class NagWeatherAPIRepositoryTests: XCTestCase {
         }
     }
     
-    func testFetchWeatherValid() throws {
+    func testFetchSuggestionListValid() throws {
+        let weatherAPIRepository = WeatherAPIRepository(urlSession: urlSession)
+        let mockData = Bundle.stubbedDataFromJson(filename: "Locations")
+
+        MockURLProtocol.requestHandler = { request in
+            return (HTTPURLResponse(), mockData)
+        }
+
+        let expectation = XCTestExpectation(description: "response")
+
+        weatherAPIRepository.searchSuggestion(query: "")
+            .sink(receiveCompletion: { _ in }, receiveValue: { locations in
+                XCTAssertEqual(locations.count, 5)
+
+                expectation.fulfill()
+            })
+            .store(in: &cancellables)
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func testFetchSuggestionListInvalidJson() throws {
         let weatherWebRepository = WeatherAPIRepository(urlSession: urlSession)
+        let mockData = "{\"data1\"\"\"}".data(using: .utf8)!
+
+        MockURLProtocol.requestHandler = { request in
+            return (HTTPURLResponse(), mockData)
+        }
+
+        let expectation = XCTestExpectation(description: "response")
+
+        weatherWebRepository.searchSuggestion(query: "")
+            .sink { operationResult in
+                switch operationResult {
+                    case .failure(let error):
+                        XCTAssertEqual(error.errorDescription, WeatherApiError.decodingError.errorDescription)
+                        expectation.fulfill()
+                        break
+                    case .finished:
+                        break
+                }
+            } receiveValue: { _ in }
+            .store(in: &cancellables)
+
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func testFetchWeatherValid() throws {
+        let weatherAPIRepository = WeatherAPIRepository(urlSession: urlSession)
         let mockData = Bundle.stubbedDataFromJson(filename: "WeatherModel")
 
         MockURLProtocol.requestHandler = { request in
@@ -51,7 +97,7 @@ final class NagWeatherAPIRepositoryTests: XCTestCase {
 
         let expectation = XCTestExpectation(description: "response")
 
-        weatherWebRepository.fetchWeather(location: "")
+        weatherAPIRepository.fetchWeather(location: "")
             .sink(receiveCompletion: { _ in }, receiveValue: { weatherData in
                 XCTAssertEqual(weatherData.forecast?.forecastday?.count, 5)
 
