@@ -36,11 +36,10 @@
 4. Weather will be displayed
 
 ### Screenshot
-<img width="372" alt="Screenshot 2024-12-05 at 4 06 15 PM" src="https://github.com/user-attachments/assets/209c45d0-3da8-427b-a818-713a3ea2b88e">
-<img width="377" alt="Screenshot 2024-12-05 at 4 06 04 PM" src="https://github.com/user-attachments/assets/2e77fa6a-148a-411b-8294-054e2727f102">
 <img width="379" alt="Screenshot 2024-12-05 at 4 05 54 PM" src="https://github.com/user-attachments/assets/cb4341e4-ee58-4791-873a-9dabc77f10f0">
 <img width="386" alt="Screenshot 2024-12-05 at 4 05 41 PM" src="https://github.com/user-attachments/assets/5b7c52f7-58a6-4b0f-b6af-59ffe9a734a0">
-
+<img width="372" alt="Screenshot 2024-12-05 at 4 06 15 PM" src="https://github.com/user-attachments/assets/209c45d0-3da8-427b-a818-713a3ea2b88e">
+<img width="377" alt="Screenshot 2024-12-05 at 4 06 04 PM" src="https://github.com/user-attachments/assets/2e77fa6a-148a-411b-8294-054e2727f102">
 
 ### TestCoverageReport
 <img width="1512" alt="Screenshot 2024-12-05 at 4 04 20 PM" src="https://github.com/user-attachments/assets/78104b8a-7048-40a8-af2b-4902b4cf2d46">
