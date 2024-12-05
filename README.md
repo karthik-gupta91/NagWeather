@@ -26,17 +26,24 @@
 3. Replace `YOURAPIKEY` with your valid weatherapi.com API key in `AppConstants.swift`
 4. Run the simulator
 
+### Test Case Execution
+
+
 ### Working
-1. Search for any location in the world
-2. By default 
+1. Open the application
+2. Search for any location in the world
+3. Select city from the suggestion list
+4. Weather will be displayed
 
 ### Screenshot
-<img width="370" alt="Screenshot 2024-11-28 at 10 55 57 PM" src="https://github.com/user-attachments/assets/d48f03ac-6ea4-4aac-be23-6db9243d0123">
-<img width="367" alt="Screenshot 2024-11-28 at 10 55 36 PM" src="https://github.com/user-attachments/assets/93936703-3893-496b-ae94-3e13de701152">
+<img width="372" alt="Screenshot 2024-12-05 at 4 06 15 PM" src="https://github.com/user-attachments/assets/209c45d0-3da8-427b-a818-713a3ea2b88e">
+<img width="377" alt="Screenshot 2024-12-05 at 4 06 04 PM" src="https://github.com/user-attachments/assets/2e77fa6a-148a-411b-8294-054e2727f102">
+<img width="379" alt="Screenshot 2024-12-05 at 4 05 54 PM" src="https://github.com/user-attachments/assets/cb4341e4-ee58-4791-873a-9dabc77f10f0">
+<img width="386" alt="Screenshot 2024-12-05 at 4 05 41 PM" src="https://github.com/user-attachments/assets/5b7c52f7-58a6-4b0f-b6af-59ffe9a734a0">
+
 
 ### TestCoverageReport
-<img width="1512" alt="Screenshot 2024-11-29 at 10 14 48 AM" src="https://github.com/user-attachments/assets/33fc5cd1-8203-47f8-b2c9-1bf7edcbd3d1">
-
+<img width="1512" alt="Screenshot 2024-12-05 at 4 04 20 PM" src="https://github.com/user-attachments/assets/78104b8a-7048-40a8-af2b-4902b4cf2d46">
 
 
 ## Thanks to
