@@ -12,7 +12,7 @@ struct NagWeatherApp: App {
     var body: some Scene {
         WindowGroup {
             let weatherAPIRepo = WeatherAPIRepository(urlSession: URLSession(configuration: .default))
-            let weatherService = WeatherServiceImpl(weatherAPIRepository: weatherAPIRepo)
+            let weatherService = WeatherServiceImpl(weatherAPIRepository: weatherAPIRepo, weatherOfflineRepository: WeatherOfflineRepository())
             ContentView(viewModel: WeatherViewModel(weatherService: weatherService))
         }
     }

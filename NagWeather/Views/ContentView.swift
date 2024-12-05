@@ -18,6 +18,7 @@ struct ContentView: View {
                 LinearGradient(gradient:
                                 Gradient(colors: [
                                     AppConstants.WeatherColor.AppBackground,
+                                    AppConstants.WeatherColor.AppBackground,
                                     AppConstants.WeatherColor.AccentColor,
                                 ]), startPoint: .top, endPoint: .bottomTrailing).ignoresSafeArea()
 
@@ -128,5 +129,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(viewModel: WeatherViewModel(weatherService: WeatherServiceImpl(weatherAPIRepository: WeatherAPIRepository(urlSession: URLSession(configuration: .default)))))
+    ContentView(viewModel: WeatherViewModel(weatherService: WeatherServiceImpl(weatherAPIRepository: WeatherAPIRepository(urlSession: URLSession(configuration: .default)), weatherOfflineRepository: WeatherOfflineRepository())))
 }

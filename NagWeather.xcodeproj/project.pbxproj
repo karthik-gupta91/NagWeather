@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F7398382D016B40009B4A00 /* SLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7398372D016B40009B4A00 /* SLocationModel.swift */; };
 		1F73983D2D018794009B4A00 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F73983C2D018794009B4A00 /* VisualEffectView.swift */; };
+		1F73983F2D018EE0009B4A00 /* WeatherOfflineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F73983E2D018EE0009B4A00 /* WeatherOfflineRepository.swift */; };
 		1F77A87C2CF8549F006A2BFC /* NagWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A87B2CF8549F006A2BFC /* NagWeatherApp.swift */; };
 		1F77A87E2CF8549F006A2BFC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A87D2CF8549F006A2BFC /* ContentView.swift */; };
 		1F77A8802CF854A0006A2BFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F77A87F2CF854A0006A2BFC /* Assets.xcassets */; };
@@ -49,9 +50,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1F7398462D01928A009B4A00 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1F7398372D016B40009B4A00 /* SLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLocationModel.swift; sourceTree = "<group>"; };
 		1F73983C2D018794009B4A00 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
+		1F73983E2D018EE0009B4A00 /* WeatherOfflineRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherOfflineRepository.swift; sourceTree = "<group>"; };
 		1F77A8782CF8549F006A2BFC /* NagWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NagWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F77A87B2CF8549F006A2BFC /* NagWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NagWeatherApp.swift; sourceTree = "<group>"; };
 		1F77A87D2CF8549F006A2BFC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -241,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				1F77A8B52CF868E4006A2BFC /* WeatherAPIRepository.swift */,
+				1F73983E2D018EE0009B4A00 /* WeatherOfflineRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -273,12 +289,15 @@
 				1F77A8742CF8549F006A2BFC /* Sources */,
 				1F77A8752CF8549F006A2BFC /* Frameworks */,
 				1F77A8762CF8549F006A2BFC /* Resources */,
+				1F7398462D01928A009B4A00 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = NagWeather;
+			packageProductDependencies = (
+			);
 			productName = NagWeather;
 			productReference = 1F77A8782CF8549F006A2BFC /* NagWeather.app */;
 			productType = "com.apple.product-type.application";
@@ -351,6 +370,8 @@
 				Base,
 			);
 			mainGroup = 1F77A86F2CF8549F006A2BFC;
+			packageReferences = (
+			);
 			productRefGroup = 1F77A8792CF8549F006A2BFC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -404,6 +425,7 @@
 				1F77A8BF2CF8B903006A2BFC /* Helpers.swift in Sources */,
 				1F77A8BA2CF87EA5006A2BFC /* APIError.swift in Sources */,
 				1F77A8B32CF86814006A2BFC /* WeatherModel.swift in Sources */,
+				1F73983F2D018EE0009B4A00 /* WeatherOfflineRepository.swift in Sources */,
 				1F77A8AF2CF8625D006A2BFC /* AppConstants.swift in Sources */,
 				1F77A8B62CF868E4006A2BFC /* WeatherAPIRepository.swift in Sources */,
 			);

@@ -65,6 +65,7 @@ class WeatherViewModel: ObservableObject {
                 }
             } receiveValue: { weatherData in
                 self.weatherData = weatherData
+                self.saveWeatherData(weatherData)
             }
             .store(in: &cancellables)
     }
@@ -97,6 +98,12 @@ class WeatherViewModel: ObservableObject {
                     self.showAlert = true
                 }
             }
+            .store(in: &cancellables)
+    }
+    
+    func saveWeatherData(_ weatherData: WeatherModel) {
+        weatherService.saveWeatherData(weatherData)
+            .sink {}
             .store(in: &cancellables)
     }
     
