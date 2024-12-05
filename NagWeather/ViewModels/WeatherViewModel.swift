@@ -124,7 +124,11 @@ class WeatherViewModel: ObservableObject {
     }
     
     func dayFrom(_ str: String) -> String {
-        return Helpers.dayOfWeek(from: str) ?? ""
+        if let day = Helpers.dayOfWeek(from: str) {
+            return day
+        } else {
+            return Helpers.day(from: str) ?? ""
+        }
     }
     
     func checkIFWeatherData() -> Bool {

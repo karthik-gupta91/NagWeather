@@ -148,7 +148,6 @@
 				1F77A8A62CF85FFF006A2BFC /* Views */,
 				1F77A8A52CF85FF4006A2BFC /* ViewModels */,
 				1F77A8A72CF8600E006A2BFC /* Service */,
-				1F77A8C32CF8BD2B006A2BFC /* Repositories */,
 				1F77A8C02CF8B909006A2BFC /* Constants */,
 				1F77A8A82CF8601A006A2BFC /* Helpers */,
 				1F77A8AD2CF8623E006A2BFC /* Resources */,
@@ -230,6 +229,7 @@
 		1F77A8B42CF8682E006A2BFC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1F77A8C32CF8BD2B006A2BFC /* Repositories */,
 				1F77A8B22CF86814006A2BFC /* WeatherModel.swift */,
 				1F7398372D016B40009B4A00 /* SLocationModel.swift */,
 			);

@@ -73,9 +73,9 @@ struct ContentView: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.black)
             
-            Text(viewModel.currentWeatherCondition() + "-" + viewModel.feelsLikeCFormatted)
+            Text(viewModel.currentWeatherCondition() + " - " + viewModel.feelsLikeCFormatted)
                 .foregroundColor(.black)
-            Text(AppConstants.lastUpdatedAt + "-" + viewModel.dayFrom(viewModel.lastUpdated()))
+            Text(AppConstants.lastUpdatedAt + " - " + viewModel.lastUpdated())
                 .foregroundColor(.black)
             
             Spacer()
