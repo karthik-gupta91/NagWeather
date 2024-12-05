@@ -3,13 +3,76 @@
 
 ## Overview
 
-`NagWeather` display current Weather conditions, including temperature, humidity, wind speed using [weather API](https://api.weatherapi.com/) and built with SwiftUI. It also displays weather forecast for next five days.
+`NagWeather` application provides weather information for a city selected by the user. Using the MVVM architectural pattern, it ensures separation of concerns, clean code, and scalability. The app implements a caching mechanism to optimize API usage and enhance performance.
 
-### TechStack
-- SwiftUI
-- Combine
-- JSON & Codable
-- MVVM
+## Features
+### City Search Suggestions
+ - Provides suggestions as the user types the city name.
+### Weather Information Display
+ - Fetches and displays real-time weather data for the selected city.
+### Caching
+ - Saves weather data locally to reduce redundant API calls.
+### Optimized Performance
+ - Avoids unnecessary API calls for frequently selected cities.
+
+## TechStack
+  - SwiftUI
+  - Combine
+  - JSON & Codable
+  - FileManager
+  - MVVM
+ 
+
+## Technical Architecture
+
+ - This app follows the MVVM pattern for better separation of concerns
+   
+### Model
+  - Responsible for data fetching and storage.
+  - Handles API calls and caching logic.
+    Components:
+    1. WeatherAPIRepository
+    2. WeatherOfflineRepository
+    3. Data Models
+
+### ViewModel
+ - Acts as a bridge between Model and View.
+ - Processes data from the repositories and provides it to the View.
+ - Handles business logic such as:
+ - Triggering API calls based on user actions.
+ - Updating the View with the appropriate data.
+  Components:
+    1. WeatherViewModel
+    2. WeatherService
+
+### Views
+ - Observes the ViewModel for updates.
+ - Displays suggestions and weather data to the user.
+ - Sends user interactions (e.g., type text) to the ViewModel.
+
+## Flow Breakdown:
+
+### User Search:
+
+1. The user starts typing the name of a city.
+2. A search API is called to provide suggestions based on the input.
+
+### Suggestion Selection:
+
+1. When the user clicks on a suggestion, the selected location's weather data is fetched via the Weather API.
+
+### Data Storage:
+
+1. The fetched weather data is saved in a local directory.
+
+### Subsequent Requests:
+
+1. If the user selects the same city again:
+   - Check the cache for existing weather data.
+   - Validate if the data has expired based on a predefined expiration time.
+2. If valid data exists: Retrieve and display it from the cache.
+3. If expired or missing: Fetch fresh data from the Weather API, update the cache, and display it.
+
 
 ## Getting Started
 
@@ -26,9 +89,6 @@
 3. Replace `YOURAPIKEY` with your valid weatherapi.com API key in `AppConstants.swift`
 4. Run the simulator
 
-### Test Case Execution
-
-
 ### Working
 1. Open the application
 2. Search for any location in the world
@@ -36,11 +96,10 @@
 4. Weather will be displayed
 
 ### Screenshot
-<img width="379" alt="Screenshot 2024-12-05 at 4 05 54 PM" src="https://github.com/user-attachments/assets/cb4341e4-ee58-4791-873a-9dabc77f10f0">
 <img width="386" alt="Screenshot 2024-12-05 at 4 05 41 PM" src="https://github.com/user-attachments/assets/5b7c52f7-58a6-4b0f-b6af-59ffe9a734a0">
-<img width="372" alt="Screenshot 2024-12-05 at 4 06 15 PM" src="https://github.com/user-attachments/assets/209c45d0-3da8-427b-a818-713a3ea2b88e">
+<img width="379" alt="Screenshot 2024-12-05 at 4 05 54 PM" src="https://github.com/user-attachments/assets/cb4341e4-ee58-4791-873a-9dabc77f10f0">
 <img width="377" alt="Screenshot 2024-12-05 at 4 06 04 PM" src="https://github.com/user-attachments/assets/2e77fa6a-148a-411b-8294-054e2727f102">
-
+<img width="372" alt="Screenshot 2024-12-05 at 4 06 15 PM" src="https://github.com/user-attachments/assets/209c45d0-3da8-427b-a818-713a3ea2b88e">
 ### TestCoverageReport
 <img width="1512" alt="Screenshot 2024-12-05 at 4 04 20 PM" src="https://github.com/user-attachments/assets/78104b8a-7048-40a8-af2b-4902b4cf2d46">
 
