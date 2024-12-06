@@ -18,11 +18,9 @@ struct ContentView: View {
                 LinearGradient(gradient:
                                 Gradient(colors: [
                                     AppConstants.WeatherColor.AppBackground,
-                                    AppConstants.WeatherColor.AppBackground,
                                     AppConstants.WeatherColor.AccentColor,
                                 ]), startPoint: .top, endPoint: .bottomTrailing).ignoresSafeArea()
 
-                VisualEffectView(effect: UIBlurEffect(style: .systemMaterialDark)).ignoresSafeArea()
                 
                 VStack {
                     if viewModel.state == .loadingLocations {
@@ -55,8 +53,8 @@ struct ContentView: View {
                           dismissButton: .default(Text(AppConstants.AlertConstants.ok)))
                 }.padding()
                 
-            }
-        }.searchable(text: $viewModel.searchText)
+            }.searchable(text: $viewModel.searchText)
+        }
         
     }
     
