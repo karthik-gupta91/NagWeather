@@ -8,37 +8,37 @@
 import Foundation
 import Combine
 
-protocol WeatherService {
+protocol WeatherRepository {
     func fetchWeather(for location: String) -> AnyPublisher<WeatherModel, WeatherApiError>
     func searchSuggestions(for query: String) -> AnyPublisher<[SLocation], WeatherApiError>
     func saveWeatherData(_ weatherData: WeatherModel) -> AnyPublisher<Void, Error>
 }
 
-struct WeatherServiceImpl: WeatherService {
+struct WeatherRepositoryImpl: WeatherRepository {
 
-    private var weatherAPIRepository: WeatherAPIRepository
-    private var weatherOfflineRepository: WeatherOfflineRepository
+    private var weatherAPIService: WeatherAPIService
+    private var weatherOfflineService: WeatherOfflineService
     
-    init(weatherAPIRepository: WeatherAPIRepository, weatherOfflineRepository: WeatherOfflineRepository) {
-        self.weatherAPIRepository = weatherAPIRepository
-        self.weatherOfflineRepository = weatherOfflineRepository
+    init(weatherAPIService: WeatherAPIService, weatherOfflineService: WeatherOfflineService) {
+        self.weatherAPIService = weatherAPIService
+        self.weatherOfflineService = weatherOfflineService
     }
     
     func fetchWeather(for location: String) -> AnyPublisher<WeatherModel, WeatherApiError> {
-        if let modifiedDate = weatherOfflineRepository.modifiedDate(location) {
+        if let modifiedDate = weatherOfflineService.modifiedDate(location) {
             if let diff = Calendar.current.dateComponents([.hour], from: modifiedDate, to: Date()).hour, diff <= 1 {
-                return weatherOfflineRepository.fetchWeatherData(for: location)
+                return weatherOfflineService.fetchWeatherData(for: location)
             }
         }
-        return weatherAPIRepository.fetchWeather(location: location)
+        return weatherAPIService.fetchWeather(location: location)
     }
     
     func searchSuggestions(for query: String) -> AnyPublisher<[SLocation], WeatherApiError> {
-        return weatherAPIRepository.searchSuggestion(query: query)
+        return weatherAPIService.searchSuggestion(query: query)
     }
     
     func saveWeatherData(_ weatherData: WeatherModel) -> AnyPublisher<Void, Error> {
-        return weatherOfflineRepository.saveWeatherData(weatherData)
+        return weatherOfflineService.saveWeatherData(weatherData)
     }
     
 }

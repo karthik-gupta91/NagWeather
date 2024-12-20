@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class WeatherOfflineRepository {
+class WeatherOfflineService {
     
     private static var documentsFolder: URL {
         do {

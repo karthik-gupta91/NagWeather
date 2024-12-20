@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class WeatherAPIRepository {
+class WeatherAPIService {
     
     let session: URLSession
 

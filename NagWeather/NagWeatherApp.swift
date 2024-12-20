@@ -11,9 +11,9 @@ import SwiftUI
 struct NagWeatherApp: App {
     var body: some Scene {
         WindowGroup {
-            let weatherAPIRepo = WeatherAPIRepository(urlSession: URLSession(configuration: .default))
-            let weatherService = WeatherServiceImpl(weatherAPIRepository: weatherAPIRepo, weatherOfflineRepository: WeatherOfflineRepository())
-            ContentView(viewModel: WeatherViewModel(weatherService: weatherService))
+            let weatherAPIService = WeatherAPIService(urlSession: URLSession(configuration: .default))
+            let weatherRepository = WeatherRepositoryImpl(weatherAPIService: weatherAPIService, weatherOfflineService: WeatherOfflineService())
+            ContentView(viewModel: WeatherViewModel(weatherRepo: weatherRepository))
         }
     }
 }

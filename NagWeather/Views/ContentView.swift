@@ -128,5 +128,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(viewModel: WeatherViewModel(weatherService: WeatherServiceImpl(weatherAPIRepository: WeatherAPIRepository(urlSession: URLSession(configuration: .default)), weatherOfflineRepository: WeatherOfflineRepository())))
+    ContentView(viewModel: WeatherViewModel(weatherRepo: WeatherRepositoryImpl(weatherAPIService: WeatherAPIService(urlSession: URLSession(configuration: .default)), weatherOfflineService: WeatherOfflineService())))
 }

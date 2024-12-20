@@ -9,7 +9,7 @@ import Foundation
 import Combine
 @testable import NagWeather
 
-class WeatherServiceMock: WeatherService {
+class WeatherRepositoryMock: WeatherRepository {
     
     var shouldReturnError = false
     

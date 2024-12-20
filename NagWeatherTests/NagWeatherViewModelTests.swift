@@ -11,13 +11,13 @@ import Combine
 
 final class NagWeatherViewModelTests: XCTestCase {
 
-    private var weatherService = WeatherServiceMock()
+    private var weatherRepo = WeatherRepositoryMock()
     private var viewModel: WeatherViewModel!
     private var cancellables = Set<AnyCancellable>()
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        viewModel = WeatherViewModel(weatherService: weatherService)
+        viewModel = WeatherViewModel(weatherRepo: weatherRepo)
     }
 
     override func tearDownWithError() throws {
@@ -40,7 +40,7 @@ final class NagWeatherViewModelTests: XCTestCase {
     }
     func testSearchSuggestionsData() {
         
-        weatherService.shouldReturnError = false
+        weatherRepo.shouldReturnError = false
         
         let expectation = XCTestExpectation(description: "search suggestion list count")
         
@@ -59,7 +59,7 @@ final class NagWeatherViewModelTests: XCTestCase {
     }
     
     func testSearchSuggestionsFailure() {
-        weatherService.shouldReturnError = true
+        weatherRepo.shouldReturnError = true
         viewModel.searchText = "Test"
         
         let expectation = XCTestExpectation(description: "search list failue")
@@ -78,7 +78,7 @@ final class NagWeatherViewModelTests: XCTestCase {
     
     
     func testWeatherViewModelData() {
-        weatherService.shouldReturnError = false
+        weatherRepo.shouldReturnError = false
         let expectation = XCTestExpectation(description: "fetch weather data")
         
         viewModel.performSearch("London")
@@ -99,7 +99,7 @@ final class NagWeatherViewModelTests: XCTestCase {
     }
     
     func testWeatherViewModelDataFailure() {
-        weatherService.shouldReturnError = true
+        weatherRepo.shouldReturnError = true
         
         viewModel.performSearch("London")
         

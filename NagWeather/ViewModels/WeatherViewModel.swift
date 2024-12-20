@@ -18,7 +18,7 @@ enum WeatherViewState {
 
 class WeatherViewModel: ObservableObject {
     
-    private let weatherService: WeatherService
+    private let weatherRepo: WeatherRepository
     private var cancellables = Set<AnyCancellable>()
     
     @Published var searchText: String = ""
@@ -30,8 +30,8 @@ class WeatherViewModel: ObservableObject {
     
     @Published private(set) var state: WeatherViewState = .none
     
-    init(weatherService: WeatherService) {
-        self.weatherService = weatherService
+    init(weatherRepo: WeatherRepository) {
+        self.weatherRepo = weatherRepo
         
         $searchText
             .dropFirst()
@@ -51,7 +51,7 @@ class WeatherViewModel: ObservableObject {
         }
         state = .fetchingWeatherData
         
-        weatherService.fetchWeather(for: searchText)
+        weatherRepo.fetchWeather(for: searchText)
             .sink { [weak self] operationResult in
                 guard let self = self else { return }
                 
@@ -77,7 +77,7 @@ class WeatherViewModel: ObservableObject {
         suggestions = []
         state = .loadingLocations
         
-        weatherService.searchSuggestions(for: searchText)
+        weatherRepo.searchSuggestions(for: searchText)
             .sink { [weak self] operationResult in
                 guard let self = self else { return }
                 
@@ -102,7 +102,7 @@ class WeatherViewModel: ObservableObject {
     }
     
     func saveWeatherData(_ weatherData: WeatherModel) {
-        weatherService.saveWeatherData(weatherData)
+        weatherRepo.saveWeatherData(weatherData)
             .sink { [weak self] operationResult in
                 guard self != nil else { return }
                 switch operationResult {
