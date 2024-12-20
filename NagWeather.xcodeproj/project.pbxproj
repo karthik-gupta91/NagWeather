@@ -240,7 +240,7 @@
 			children = (
 				1F73984F2D156A50009B4A00 /* Data Models */,
 				1F73984E2D1566AF009B4A00 /* Repositories */,
-				1F77A8C32CF8BD2B006A2BFC /* Service */,
+				1F77A8C32CF8BD2B006A2BFC /* DataSources */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -262,13 +262,13 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		1F77A8C32CF8BD2B006A2BFC /* Service */ = {
+		1F77A8C32CF8BD2B006A2BFC /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
 				1F77A8B52CF868E4006A2BFC /* WeatherAPIService.swift */,
 				1F73983E2D018EE0009B4A00 /* WeatherOfflineService.swift */,
 			);
-			path = Service;
+			path = DataSources;
 			sourceTree = "<group>";
 		};
 		1F77A8D72CF8D415006A2BFC /* Mock */ = {
