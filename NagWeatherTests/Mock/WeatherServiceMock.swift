@@ -11,6 +11,8 @@ import Combine
 
 class WeatherServiceMock: WeatherService {
     
+    var shouldReturnError = false
+    
     func searchSuggestions(for query: String) -> AnyPublisher<[SLocation], WeatherApiError> {
         if shouldReturnError {
             return Fail(error: WeatherApiError.decodingError)
@@ -35,9 +37,6 @@ class WeatherServiceMock: WeatherService {
         }
         
     }
-    
-    
-    var shouldReturnError = false
     
     func fetchWeather(for location: String) -> AnyPublisher<WeatherModel, WeatherApiError> {
         if shouldReturnError {

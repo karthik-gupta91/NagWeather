@@ -16,17 +16,18 @@ struct WeatherModel: Codable {
 
 // MARK: - Current
 struct Current: Codable {
-    let lastUpdatedEpoch: Double?
+    let lastUpdatedEpoch: Int?
     let lastUpdated: String?
     let tempC, tempF: Double?
-    let isDay: Double?
+    let isDay: Int?
     let condition: Condition?
     let windMph, windKph: Double?
-    let windDegree: Double?
+    let windDegree: Int?
     let windDir: String?
     let pressureMB: Double?
     let pressureIn: Double?
-    let precipMm, precipIn, humidity, cloud: Double?
+    let precipMm, precipIn: Double?
+    let humidity, cloud: Int?
     let feelslikeC, feelslikeF, windchillC, windchillF: Double?
     let heatindexC, heatindexF, dewpointC, dewpointF: Double?
     let visKM, visMiles: Double?
@@ -67,7 +68,7 @@ struct Current: Codable {
 // MARK: - Condition
 struct Condition: Codable {
     let text, icon: String?
-    let code: Double?
+    let code: Int?
 }
 
 // MARK: - Location
@@ -122,7 +123,8 @@ struct Forecastday: Codable, Identifiable {
 struct Astro: Codable {
     let sunrise, sunset, moonrise, moonset: String?
     let moonPhase: String?
-    let moonIllumination, isMoonUp, isSunUp: Int?
+    let moonIllumination: Double?
+    let isMoonUp, isSunUp: Int?
 
     enum CodingKeys: String, CodingKey {
         case sunrise, sunset, moonrise, moonset
@@ -138,9 +140,10 @@ struct Day: Codable {
     let maxtempC, maxtempF, mintempC, mintempF: Double?
     let avgtempC, avgtempF, maxwindMph, maxwindKph: Double?
     let totalprecipMm, totalprecipIn: Double?
-    let totalsnowCM: Int?
+    let totalsnowCM: Double?
     let avgvisKM: Double?
-    let avgvisMiles, avghumidity, dailyWillItRain, dailyChanceOfRain: Int?
+    let avgvisMiles, dailyWillItRain, dailyChanceOfRain: Double?
+    let avghumidity: Int?
     let dailyWillItSnow, dailyChanceOfSnow: Int?
     let condition: Condition?
     let uv: Double?

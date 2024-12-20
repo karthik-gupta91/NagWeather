@@ -11,7 +11,7 @@ import SwiftUI
 enum AppConstants {
     enum Api {
         static let apiUrl = URL(string: "https://api.weatherapi.com/v1")!
-        static let apiKey = "37b77dd3d8134c0681c70638242811"
+        static let apiKey = "f160e09382f74546b7050803242012"
 
         enum QueryKey: String {
             case apiKey = "key"

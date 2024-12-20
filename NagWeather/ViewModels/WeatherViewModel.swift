@@ -104,12 +104,12 @@ class WeatherViewModel: ObservableObject {
     func saveWeatherData(_ weatherData: WeatherModel) {
         weatherService.saveWeatherData(weatherData)
             .sink { [weak self] operationResult in
-                guard let self = self else { return }
+                guard self != nil else { return }
                 switch operationResult {
                 case .finished:
                     print("weather data saved successfully")
                 case .failure(let error):
-                    print("weather data saving failed")
+                    print("weather data saving failed \(error)")
                 }
             } receiveValue: {}
             .store(in: &cancellables)

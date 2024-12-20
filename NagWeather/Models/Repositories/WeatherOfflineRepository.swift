@@ -10,10 +10,6 @@ import Combine
 
 class WeatherOfflineRepository {
     
-    init() {
-        
-    }
-    
     private static var documentsFolder: URL {
         do {
             return try FileManager.default.url(for: .documentDirectory,
