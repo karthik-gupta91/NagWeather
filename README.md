@@ -31,9 +31,9 @@
   - Responsible for data fetching and storage.
   - Handles API calls and caching logic.
   - Components:
-    1. WeatherAPIRepository
-    2. WeatherOfflineRepository
-    3. Data Models
+    1. Data Models
+    2. WeatherService
+    3. WeatherRepository
 
 ### ViewModel
  - Acts as a bridge between Model and View.
@@ -43,7 +43,6 @@
  - Updating the View with the appropriate data.
  - Components:
     1. WeatherViewModel
-    2. WeatherService
 
 ### Views
  - Observes the ViewModel for updates.
@@ -51,6 +50,7 @@
  - Sends user interactions (e.g., type text) to the ViewModel.
  - Components:
     1. ContentView
+    2. DaySummaryView
 
 ## Flow Breakdown:
 
