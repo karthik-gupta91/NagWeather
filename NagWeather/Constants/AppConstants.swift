@@ -35,6 +35,7 @@ enum AppConstants {
         static let alert = "Alert"
         static let ok = "Ok"
         static let loading = "Loading…"
+        static let noSuggestionFound = "No suggestions found"
     }
     
     static let lastUpdatedAt = "Last updated at"

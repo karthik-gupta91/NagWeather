@@ -19,20 +19,19 @@ class WeatherRepositoryMock: WeatherRepository {
                 .eraseToAnyPublisher()
         } else {
             return Just(createLocationResponseMock())
-                .receive(on: DispatchQueue.main)
+                .receive(on: RunLoop.main)
                 .setFailureType(to: WeatherApiError.self)
                 .eraseToAnyPublisher()
         }
     }
     
-    func saveWeatherData(_ weatherData: WeatherModel) -> AnyPublisher<Void, Error> {
+    func saveWeatherData(_ weatherData: WeatherModel) -> AnyPublisher<Void, WeatherApiError> {
         if shouldReturnError {
             return Fail(error: WeatherApiError.decodingError)
                 .eraseToAnyPublisher()
         } else {
             return Just(())
-                .receive(on: DispatchQueue.main)
-                .setFailureType(to: Error.self)
+                .setFailureType(to: WeatherApiError.self)
                 .eraseToAnyPublisher()
         }
         
@@ -44,7 +43,7 @@ class WeatherRepositoryMock: WeatherRepository {
                 .eraseToAnyPublisher()
         } else {
             return Just(createResponseMock())
-                .receive(on: DispatchQueue.main)
+                .receive(on: RunLoop.main)
                 .setFailureType(to: WeatherApiError.self)
                 .eraseToAnyPublisher()
         }

@@ -14,6 +14,7 @@ enum WeatherViewState {
     case locationsLoaded
     case fetchingWeatherData
     case dataLoaded
+    case failed(String)
 }
 
 class WeatherViewModel: ObservableObject {
@@ -30,13 +31,15 @@ class WeatherViewModel: ObservableObject {
     
     @Published private(set) var state: WeatherViewState = .none
     
+    private let searchQueueLabel = "SearchSuggestions"
+
     init(weatherRepo: WeatherRepository) {
         self.weatherRepo = weatherRepo
         
         $searchText
             .dropFirst()
-            .debounce(for: .milliseconds(500), scheduler: DispatchQueue(label: "SearchSuggestions", qos: .userInteractive))
-            .receive(on: DispatchQueue.main)
+            .debounce(for: .milliseconds(500), scheduler: DispatchQueue(label: searchQueueLabel, qos: .userInteractive))
+            .receive(on: RunLoop.main)
             .sink { [weak self] query in
                 self?.showSuggestions(query: query)
             }
@@ -46,27 +49,23 @@ class WeatherViewModel: ObservableObject {
     
     
     func performSearch(_ searchText: String) {
-        guard !searchText.isEmpty else {
-            return
-        }
-        state = .fetchingWeatherData
+        guard !searchText.isEmpty else { return }
         
+        state = .fetchingWeatherData
         weatherRepo.fetchWeather(for: searchText)
-            .sink { [weak self] operationResult in
-                guard let self = self else { return }
-                
-                switch operationResult {
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
                 case .finished:
-                    state = .dataLoaded
+                    self?.state = .dataLoaded
                 case .failure(let error):
-                    state = .none
-                    self.errorMessage = error.localizedDescription
-                    self.showAlert = true
+                    self?.state = .failed(error.localizedDescription)
+                    self?.showAlert = true
                 }
-            } receiveValue: { weatherData in
-                self.weatherData = weatherData
-                self.saveWeatherData(weatherData)
-            }
+            }, receiveValue: { [weak self] weatherData in
+                self?.weatherData = weatherData
+                self?.saveWeatherData(weatherData)
+            })
             .store(in: &cancellables)
     }
     
@@ -85,8 +84,7 @@ class WeatherViewModel: ObservableObject {
                 case .finished:
                     state = .locationsLoaded
                 case .failure(let error):
-                    state = .none
-                    self.errorMessage = error.localizedDescription
+                    state = .failed(error.localizedDescription)
                     self.showAlert = true
                 }
             } receiveValue: { slocations in
@@ -94,7 +92,7 @@ class WeatherViewModel: ObservableObject {
                     self.suggestions = slocations
                 } else {
                     self.state = .none
-                    self.errorMessage = "No suggestions found"
+                    self.errorMessage = AppConstants.AlertConstants.noSuggestionFound
                     self.showAlert = true
                 }
             }

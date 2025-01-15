@@ -9,71 +9,50 @@ import Foundation
 import Combine
 
 class WeatherAPIService {
-    
-    let session: URLSession
+
+    private let session: URLSession
+    private let jsonDecoder: JSONDecoder
 
     init(urlSession: URLSession = .shared) {
         self.session = urlSession
+        self.jsonDecoder = JSONDecoder()
+        self.jsonDecoder.dateDecodingStrategy = .iso8601
     }
 
     func fetchWeather(location: String) -> AnyPublisher<WeatherModel, WeatherApiError> {
         let endpoint = Api.fetchWeather(location: location)
-
-        return session
-            .dataTaskPublisher(for: endpoint.urlRequest)
-            .receive(on: DispatchQueue.main)
-            .mapError { error in
-                WeatherApiError.errorCode(error.errorCode)
-            }
-            .flatMap { data, response -> AnyPublisher<WeatherModel, WeatherApiError> in
-                guard let response = response as? HTTPURLResponse else {
-                    return Fail(error: WeatherApiError.unknown).eraseToAnyPublisher()
-                }
-                if (200...299).contains(response.statusCode) {
-                    let jsonDecoder = JSONDecoder()
-                    jsonDecoder.dateDecodingStrategy = .iso8601
-                    return Just(data)
-                        .decode(type: WeatherModel.self, decoder: jsonDecoder)
-                        .mapError { _ in
-                            return WeatherApiError.decodingError
-                        }
-                        .eraseToAnyPublisher()
-                } else {
-                    return Fail(error: WeatherApiError.errorCode(response.statusCode)).eraseToAnyPublisher()
-                }
-            }
-            .eraseToAnyPublisher()
+        return performRequest(for: endpoint.urlRequest, responseType: WeatherModel.self)
     }
 
-    
     func searchSuggestion(query: String) -> AnyPublisher<[SLocation], WeatherApiError> {
         let endpoint = Api.searchSuggestion(query: query)
+        return performRequest(for: endpoint.urlRequest, responseType: [SLocation].self)
+    }
 
-        return session
-            .dataTaskPublisher(for: endpoint.urlRequest)
-            .receive(on: DispatchQueue.main)
+    private func performRequest<T: Decodable>(
+        for request: URLRequest,
+        responseType: T.Type
+    ) -> AnyPublisher<T, WeatherApiError> {
+        session
+            .dataTaskPublisher(for: request)
+            .receive(on: RunLoop.main)
             .mapError { error in
                 WeatherApiError.errorCode(error.errorCode)
             }
-            .flatMap { data, response -> AnyPublisher<[SLocation], WeatherApiError> in
-                guard let response = response as? HTTPURLResponse else {
+            .flatMap { data, response -> AnyPublisher<T, WeatherApiError> in
+                guard let httpResponse = response as? HTTPURLResponse else {
                     return Fail(error: WeatherApiError.unknown).eraseToAnyPublisher()
                 }
-                if (200...299).contains(response.statusCode) {
-                    let jsonDecoder = JSONDecoder()
-                    jsonDecoder.dateDecodingStrategy = .iso8601
-                    return Just(data)
-                        .decode(type: [SLocation].self, decoder: jsonDecoder)
-                        .mapError { error in
-                            return WeatherApiError.decodingError
-                        }
-                        .eraseToAnyPublisher()
-                } else {
-                    return Fail(error: WeatherApiError.errorCode(response.statusCode)).eraseToAnyPublisher()
+
+                guard (200...299).contains(httpResponse.statusCode) else {
+                    return Fail(error: WeatherApiError.errorCode(httpResponse.statusCode)).eraseToAnyPublisher()
                 }
+
+                return Just(data)
+                    .decode(type: responseType, decoder: self.jsonDecoder)
+                    .mapError { _ in WeatherApiError.decodingError }
+                    .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
     }
 }
-
-

@@ -32,6 +32,8 @@
 		1F77A8D42CF8CE07006A2BFC /* WeatherServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8D32CF8CE07006A2BFC /* WeatherServiceMock.swift */; };
 		1F77A8DA2CF96417006A2BFC /* NagWeatherAPIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8D92CF96417006A2BFC /* NagWeatherAPIServiceTests.swift */; };
 		1F77A8DC2CF96610006A2BFC /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F77A8DB2CF96610006A2BFC /* MockURLProtocol.swift */; };
+		1F8F39562D368626000BDA9F /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F39552D368626000BDA9F /* Date+Extension.swift */; };
+		1F8F39582D36882B000BDA9F /* ProgressViewWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F39572D36882B000BDA9F /* ProgressViewWithText.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,8 @@
 		1F77A8D32CF8CE07006A2BFC /* WeatherServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceMock.swift; sourceTree = "<group>"; };
 		1F77A8D92CF96417006A2BFC /* NagWeatherAPIServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NagWeatherAPIServiceTests.swift; sourceTree = "<group>"; };
 		1F77A8DB2CF96610006A2BFC /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		1F8F39552D368626000BDA9F /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		1F8F39572D36882B000BDA9F /* ProgressViewWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewWithText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				1F77A8BE2CF8B903006A2BFC /* Helpers.swift */,
+				1F8F39552D368626000BDA9F /* Date+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -249,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				1F77A8BB2CF899C5006A2BFC /* DaySummaryView.swift */,
+				1F8F39572D36882B000BDA9F /* ProgressViewWithText.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -438,6 +444,8 @@
 				1F77A8BA2CF87EA5006A2BFC /* APIError.swift in Sources */,
 				1F77A8B32CF86814006A2BFC /* WeatherModel.swift in Sources */,
 				1F73983F2D018EE0009B4A00 /* WeatherOfflineService.swift in Sources */,
+				1F8F39582D36882B000BDA9F /* ProgressViewWithText.swift in Sources */,
+				1F8F39562D368626000BDA9F /* Date+Extension.swift in Sources */,
 				1F77A8AF2CF8625D006A2BFC /* AppConstants.swift in Sources */,
 				1F77A8B62CF868E4006A2BFC /* WeatherAPIService.swift in Sources */,
 			);

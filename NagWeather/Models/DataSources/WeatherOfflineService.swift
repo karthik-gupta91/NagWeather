@@ -12,10 +12,12 @@ class WeatherOfflineService {
     
     private static var documentsFolder: URL {
         do {
-            return try FileManager.default.url(for: .documentDirectory,
-                                                  in: .userDomainMask,
-                                                  appropriateFor: nil,
-                                                  create: false)
+            return try FileManager.default.url(
+                for: .documentDirectory,
+                in: .userDomainMask,
+                appropriateFor: nil,
+                create: false
+            )
         } catch {
             fatalError("Can't find documents directory.")
         }
@@ -24,47 +26,75 @@ class WeatherOfflineService {
     private func fileURL(_ path: String) -> URL {
         return Self.documentsFolder.appendingPathComponent("\(path).data")
     }
-
+    
+    private let jsonEncoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        return encoder
+    }()
+    
+    private let jsonDecoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }()
+    
     func fetchWeatherData(for location: String) -> AnyPublisher<WeatherModel, WeatherApiError> {
         return Future { promise in
             DispatchQueue.global(qos: .background).async {
-                guard let data = try? Data(contentsOf: self.fileURL(location)) else {
-                    return
+                let fileURL = self.fileURL(location)
+                do {
+                    let data = try Data(contentsOf: fileURL)
+                    let weatherData = try self.jsonDecoder.decode(WeatherModel.self, from: data)
+                    DispatchQueue.main.async {
+                        promise(.success(weatherData))
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        promise(.failure(.dataNotFound))
+                    }
                 }
-                guard let weatherData = try? JSONDecoder().decode(WeatherModel.self, from: data) else {
-                    fatalError("Can't decode saved data.")
-                }
-                promise(.success(weatherData))
             }
         }
-        .receive(on: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
     
-    func saveWeatherData(_ weatherData: WeatherModel) -> AnyPublisher<Void, Error> {
+    func saveWeatherData(_ weatherData: WeatherModel) -> AnyPublisher<Void, WeatherApiError> {
         return Future { promise in
             DispatchQueue.global(qos: .background).async {
-                guard let data = try? JSONEncoder().encode(weatherData) else { fatalError("Error encoding data") }
+                let fileURL = self.fileURL(weatherData.location?.name ?? "unknown")
                 do {
-                    let outfile = self.fileURL(weatherData.location?.name ?? "unknown")
-                    try data.write(to: outfile)
-                    promise(.success(()))
+                    let data = try self.jsonEncoder.encode(weatherData)
+                    try data.write(to: fileURL)
+                    DispatchQueue.main.async {
+                        promise(.success(()))
+                    }
                 } catch {
-                    fatalError("Can't write to file")
+                    DispatchQueue.main.async {
+                        promise(.failure(.fileWriteFailed))
+                    }
                 }
             }
         }
-        .receive(on: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
     
-    func modifiedDate(_ location: String) -> Date? {
-        let file: URL = self.fileURL(location)
-        if let attributes = try? FileManager.default.attributesOfItem(atPath: file.path) as [FileAttributeKey: Any],
-           let modifiedDate = attributes[FileAttributeKey.modificationDate] as? Date {
-            return modifiedDate
+    func modifiedDate(for location: String) -> AnyPublisher<Date?, Never> {
+        return Future { promise in
+            DispatchQueue.global(qos: .background).async {
+                let fileURL = self.fileURL(location)
+                if let attributes = try? FileManager.default.attributesOfItem(atPath: fileURL.path),
+                   let modifiedDate = attributes[.modificationDate] as? Date {
+                    DispatchQueue.main.async {
+                        promise(.success(modifiedDate))
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        promise(.success(nil))
+                    }
+                }
+            }
         }
-        return nil
+        .eraseToAnyPublisher()
     }
-    
 }

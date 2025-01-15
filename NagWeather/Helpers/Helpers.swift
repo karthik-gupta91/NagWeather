@@ -16,7 +16,6 @@ enum Helpers {
 
         dateFormatter.dateFormat = "EEEE"
         return dateFormatter.string(from: date).capitalized
-        // or use capitalized(with: locale) if you want
     }
 
     static func day(from value: String) -> String? {
@@ -27,7 +26,6 @@ enum Helpers {
 
         dateFormatter.dateFormat = "EEEE"
         return dateFormatter.string(from: date).capitalized
-        // or use capitalized(with: locale) if you want
     }
     
     static func stringToDate(str: String) -> Date {

@@ -11,6 +11,8 @@ import Foundation
 enum WeatherApiError: Error {
     case decodingError
     case errorCode(Int)
+    case dataNotFound
+    case fileWriteFailed
     case unknown
 }
 
@@ -27,6 +29,10 @@ extension WeatherApiError: LocalizedError {
                 return "\(code) - error code from API"
                 
             }
+        case .dataNotFound:
+            return "Data not found"
+        case .fileWriteFailed:
+            return "Writing on file manager failed"
         case .unknown:
             return "Unknown error"
         }
